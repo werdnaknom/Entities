@@ -1,5 +1,5 @@
 
 
 class Entities():
-    def __repr__():
+    def __repr__(self):
         return "OK!"
