@@ -17,6 +17,9 @@ class _EntityBase:
     created_date: datetime.datetime = field(
         default=datetime.datetime.utcnow(), repr=False, compare=False)
 
+    def get_id(self):
+        return self._id
+
     @classmethod
     def get_type(cls):
         return cls._type
