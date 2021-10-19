@@ -264,6 +264,7 @@ class SubmissionEntity(_EntityBase, _SubmissionBase, Entity):
 @dataclass
 class _RunidBase:
     runid: int
+    location: str
     project: str
     pba: str
     rework: int
@@ -284,15 +285,16 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
     def __post_init__(self):
         self.runid = int(self.runid)
         if self._id is None:
-            self._id = self.format_id(runid=self.runid)
+            self._id = self.format_id(runid=self.runid, location=self.location)
 
     @property
     def descriptor(self) -> str:
         return str(self.runid)
 
     @classmethod
-    def format_id(cls, runid) -> str:
-        return str(runid)
+    def format_id(cls, runid: int, location: str) -> str:
+        fmt = "{location}-{runid}"
+        return fmt.format(location=location, runid=runid)
 
     @classmethod
     def from_dataframe_row(cls, df_row) -> RunidEntity:
@@ -309,7 +311,8 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
                             comments=comments,
                             testrun=testrun,
                             status=status,
-                            system_info=system)
+                            system_info=system,
+                            location="OR")
 
         return runid
 
@@ -325,6 +328,7 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
                             pba=adict["pba"],
                             rework=adict["rework"],
                             serial=adict["submission"],
+                            location=adict["location"],
                             comments=comments,
                             testrun=testrun,
                             status=status,
