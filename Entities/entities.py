@@ -264,6 +264,10 @@ class SubmissionEntity(_EntityBase, _SubmissionBase, Entity):
 @dataclass
 class _RunidBase:
     runid: int
+    project: str
+    pba: str
+    rework: int
+    serial: str
     status: StatusFileEntity
     system_info: SystemInfoFileEntity
     testrun: TestRunFileEntity
@@ -298,6 +302,10 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
         system = SystemInfoFileEntity.from_dataframe_row(df_row=df_row)
 
         runid = RunidEntity(runid=df_row.runid,
+                            project=df_row.project,
+                            pba=df_row.pba,
+                            rework=df_row.rework,
+                            serial=df_row.serial,
                             comments=comments,
                             testrun=testrun,
                             status=status,
@@ -313,6 +321,10 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
         system = SystemInfoFileEntity.from_dict(adict=adict.pop("system_info"))
 
         runid = RunidEntity(runid=adict['runid'],
+                            project=adict['DUT'],
+                            pba=adict["pba"],
+                            rework=adict["rework"],
+                            serial=adict["submission"],
                             comments=comments,
                             testrun=testrun,
                             status=status,
