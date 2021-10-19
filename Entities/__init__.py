@@ -1,7 +1,7 @@
-from base_entity import Entity, _EntityBase
+from .base_entity import Entity, _EntityBase
 
-from entities import *
-from file_entities import *
+from .entities import *
+from .file_entities import *
 '''
 from Entities import ProjectEntity, PBAEntity, ReworkEntity, \
     SubmissionEntity, RunidEntity, AutomationTestEntity, WaveformCaptureEntity, \

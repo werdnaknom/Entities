@@ -358,7 +358,7 @@ class CaptureEnvironmentFileEntity(_FileEntityBase, _CaptureSettingsBase,
 
     def __post_init__(self):
         self.chamber_setpoint = int(self.chamber_setpoint)
-        if self.dut_on is "false":
+        if self.dut_on == "false":
             self.dut_on = False
         else:
             self.dut_on = True

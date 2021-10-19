@@ -8,12 +8,12 @@ from pathlib import Path
 
 from pandas import Series, DataFrame
 
-from app.shared.Entities.file_entities import CommentsFileEntity, \
+from Entities import CommentsFileEntity, \
     StatusFileEntity, SystemInfoFileEntity, TestRunFileEntity, \
     CaptureEnvironmentFileEntity, ProbesFileEntity, PowerSupplyChannel, \
     CaptureSettingsEntity, DUTTrafficFileEntity, LPTrafficFileEntity, Port, \
     PowerCSVFileEntity, RunidPowerCSVFileEntity, CapturePowerCSVFileEntity
-from app.shared.Entities._tests.test_helper import dataframe_row, ethagent_row
+from Entities._tests.test_helper import dataframe_row, ethagent_row
 from basicTestCase.basic_test_case import BasicTestCase
 
 
@@ -278,7 +278,7 @@ class TestRunFileEntityTestCase(FileEntityTestCase):
                                        '8': '1P1V_AVDDH'},
                        "board_id": 2186, "configuration": "Config1"}
         e = TestRunFileEntity.from_dict(adict=entity_dict)
-        #e = self._test_from_dict(entity_dict=entity_dict)
+        # e = self._test_from_dict(entity_dict=entity_dict)
 
         self.assertIsInstance(e.serial_number, str)
 
