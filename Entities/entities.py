@@ -586,6 +586,103 @@ class EthAgentCaptureEntity(_EntityBase, _EthAgentCaptureBase, Entity):
 
 
 @dataclass
+class _ScriptCaptureBase:
+    capture: int
+    runid: int
+    system: str
+    test_category: str
+    text_files: t.Dict[str, str]
+    environment: CaptureEnvironmentFileEntity
+    ID_FMT: str = "script_{runid}_{test}_{system}_{capture}"
+    _type: str = "DATACAPTURE"
+
+
+@dataclass()
+class ScriptCaptureEntity(_EntityBase, _ScriptCaptureBase, Entity):
+
+    def __post_init__(self):
+        self.runid = int(self.runid)
+        self.capture = int(self.capture)
+        if self._id is None:
+            self._id = self.format_id(runid=self.runid,
+                                      test_category=self.test_category,
+                                      system=self.system,
+                                      capture=self.capture)
+
+    @property
+    def descriptor(self) -> str:
+        return str(self.capture)
+
+    @classmethod
+    def format_id(cls, runid: int, test_category: str, system: str, capture: int) -> str:
+        test_category = cls.format_test_category(word=test_category)
+        return cls.ID_FMT.format(runid=runid, test=test_category, system=system,
+                                 capture=capture)
+
+    @classmethod
+    def from_dataframe_row(cls, df_row) -> ScriptCaptureEntity:
+        """
+        environment = CaptureEnvironmentFileEntity.from_dataframe_row(
+            df_row=df_row)
+        capture = ScriptCaptureEntity(capture=df_row.capture, runid=df_row.runid,
+                                      test_category=df_row.test_category,
+                                      environment=environment,
+                                      system="SYSTEM",
+                                      text_files={}
+                                      )
+        return capture
+        """
+        raise NotImplementedError
+
+    @classmethod
+    def from_dict(cls, adict: dict) -> ScriptCaptureEntity:
+
+        """
+        environment = CaptureEnvironmentFileEntity.from_dict(
+            adict=adict.pop("environment"))
+        capture = ScriptCaptureEntity(capture=adict["capture"],
+                                      runid=adict["runid"],
+                                      test_category=adict["test_category"],
+                                      environment=environment,
+                                      system=adict['system'],
+                                      text_files=adict["script_text_files"]
+                                      )
+        return capture
+        """
+        raise NotImplementedError
+
+    def get_filter(self) -> dict:
+        return {"capture": self.capture,
+                "runid": self.runid,
+                "system": self.system,
+                "test_category": self.test_category}
+
+    @classmethod
+    def search_filter(cls, capture: int, runid: int, system: str, test_category: str) -> dict:
+        search_dict = {}
+
+        if test_category is not None:
+            search_dict["test_category"] = test_category
+        if capture is not None:
+            search_dict['capture'] = int(capture)
+        if runid is not None:
+            search_dict['runid'] = int(runid)
+        if system is not None:
+            search_dict['system'] = system
+
+        return search_dict
+
+    def to_result(self) -> OrderedDict:
+        """
+        environment = self.environment.to_result()
+        result_dict = OrderedDict([("Capture", self.capture)])
+        result_dict.update(environment)
+        return result_dict
+        """
+        raise NotImplementedError
+
+
+@dataclass
 class _WaveformBase:
     testpoint: str
     runid: int
