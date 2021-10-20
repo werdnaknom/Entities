@@ -193,7 +193,7 @@ class _TestRunBase:
     test_station: str
     configuration: str
     board_id: int
-    test_points: t.Dict[str] = field(default_factory=dict)
+    test_points: t.Dict[int, str] = field(default_factory=dict)
 
 
 @dataclass
