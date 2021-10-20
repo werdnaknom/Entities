@@ -13,7 +13,7 @@ from . import Entity, _EntityBase
 from .file_entities import CommentsFileEntity, \
     StatusFileEntity, SystemInfoFileEntity, TestRunFileEntity, \
     CaptureEnvironmentFileEntity, ProbesFileEntity, CaptureSettingsEntity, \
-    LPTrafficFileEntity, DUTTrafficFileEntity
+    LPTrafficFileEntity, DUTTrafficFileEntity, RunidPowerCSVFileEntity
 
 IDTYPE = t.Optional[str]
 TriStateType = t.TypeVar('TriStateType', bool, type(None))
@@ -273,6 +273,7 @@ class _RunidBase:
     system_info: SystemInfoFileEntity
     testrun: TestRunFileEntity
     comments: CommentsFileEntity
+    power: RunidPowerCSVFileEntity
     _type: str = "RUNID"
 
 
