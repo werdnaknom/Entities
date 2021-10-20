@@ -642,7 +642,7 @@ class LPTrafficFileEntity(TrafficFileEntity):
 
 @dataclass
 class _PowerCSVBase():
-    folder_path: str
+    #folder_path: str
     dataframe: pd.DataFrame
 
 
