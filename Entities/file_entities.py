@@ -122,10 +122,12 @@ class StatusFileEntity(_FileEntityBase, _StatusBase):
 @dataclass
 class _ProbesBase:
     channel: int
-    type: str
+    part_number: str
     serial_number: str
     units: str
     cal_status: str
+    deguass: bool
+    dynamic_range: int
 
 
 @dataclass
