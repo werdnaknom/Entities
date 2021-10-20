@@ -146,7 +146,7 @@ class ProbesFileEntity(_FileEntityBase, _ProbesBase):
 
 @dataclass
 class _SystemInfoBase:
-    probes: list = field(default_factory=list)
+    probes: t.List[ProbesFileEntity] = field(default_factory=list)
     scope_serial_number: str = ""
     power_supply_serial_number: str = ""
     ats_version: str = ""
