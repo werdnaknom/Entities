@@ -592,7 +592,7 @@ class _ScriptCaptureBase:
     system: str
     test_category: str
     text_files: t.Dict[str, str]
-    environment: CaptureEnvironmentFileEntity
+    #environment: CaptureEnvironmentFileEntity
     ID_FMT: str = "script_{runid}_{test}_{system}_{capture}"
     _type: str = "DATACAPTURE"
 
