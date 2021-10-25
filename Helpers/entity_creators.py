@@ -60,7 +60,6 @@ def _update_entity(collection: str, entity: ENTITY_TYPE):
     # TODO:: Actually complete this function
     raise NotImplementedError
     key = {}
-    data = {}
     data = {"$set": {"lastModified": datetime.datetime.now()}}
     updated = mongo.db[collection].update(key=key,  # query_parameter,
                                           data=data,  # replacement document
