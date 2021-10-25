@@ -196,7 +196,6 @@ class _TestRunBase:
     configuration: str
     board_id: int
     test_points: t.Dict[int, str] = field(default_factory=dict)
-    test_points_list: t.List[str] = field(default=list)
 
 
 @dataclass
