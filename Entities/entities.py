@@ -325,7 +325,7 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
         system = SystemInfoFileEntity.from_dict(adict=adict.pop("system_info"))
 
         runid = RunidEntity(runid=adict['runid'],
-                            project=adict['DUT'],
+                            project=adict['project'],
                             pba=adict["pba"],
                             rework=adict["rework"],
                             serial=adict["submission"],
