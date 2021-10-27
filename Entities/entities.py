@@ -323,17 +323,19 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
         testrun = TestRunFileEntity.from_dict(adict=adict.pop("testrun"))
         status = StatusFileEntity.from_dict(adict=adict.pop("status"))
         system = SystemInfoFileEntity.from_dict(adict=adict.pop("system_info"))
+        power = RunidPowerCSVFileEntity.from_dict(adict.pop("power"))
 
         runid = RunidEntity(runid=adict['runid'],
                             project=adict['project'],
                             pba=adict["pba"],
                             rework=adict["rework"],
-                            serial=adict["submission"],
+                            serial=adict["serial"],
                             location=adict["location"],
                             comments=comments,
                             testrun=testrun,
                             status=status,
-                            system_info=system)
+                            system_info=system,
+                            power=power)
         return runid
 
     def get_filter(self) -> dict:
