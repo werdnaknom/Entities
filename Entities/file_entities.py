@@ -644,6 +644,7 @@ class LPTrafficFileEntity(TrafficFileEntity):
 class _PowerCSVBase():
     # folder_path: str
     dataframe: pd.DataFrame
+    max_power: float
 
 
 @dataclass
