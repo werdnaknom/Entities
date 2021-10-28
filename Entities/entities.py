@@ -14,6 +14,7 @@ from .file_entities import CommentsFileEntity, \
     StatusFileEntity, SystemInfoFileEntity, TestRunFileEntity, \
     CaptureEnvironmentFileEntity, ProbesFileEntity, CaptureSettingsEntity, \
     LPTrafficFileEntity, DUTTrafficFileEntity, RunidPowerCSVFileEntity
+from Helpers.path_translator import PathTranslator
 
 IDTYPE = t.Optional[str]
 TriStateType = t.TypeVar('TriStateType', bool, type(None))
@@ -414,6 +415,7 @@ class _WaveformCaptureBase:
     test_category: str
     capture_settings: CaptureSettingsEntity
     environment: CaptureEnvironmentFileEntity
+    capture_image: PathTranslator
     ID_FMT: str = "waveform_{runid}_{test}_{capture}"
     _type: str = "DATACAPTURE"
 
@@ -458,11 +460,13 @@ class WaveformCaptureEntity(_EntityBase, _WaveformCaptureBase, Entity):
             "capture_settings"))
         environment = CaptureEnvironmentFileEntity.from_dict(
             adict=adict.pop("environment"))
+        capture_pt = PathTranslator(path_str=adict["capture_path"])
         capture = WaveformCaptureEntity(capture=adict["capture"],
                                         runid=adict["runid"],
                                         test_category=adict["test_category"],
                                         capture_settings=settings,
                                         environment=environment,
+                                        capture_image=capture_pt
                                         )
         return capture
 
