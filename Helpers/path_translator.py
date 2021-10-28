@@ -3,35 +3,27 @@ from dataclasses import dataclass
 import platform
 import os
 
+
 @dataclass
 class PathTranslator:
     path_name: str
     path_str: str
-    path_obj: Path = None
-    system:str = platform.system()
-
-    def __post_init__(self):
-        if (self.system == "Linux") & (self.path_str.find("//") == 0):
-            # //npo needs to be changed to /npo
-            linux_str = self.path_str[1:]
-            self.path_obj = Path(linux_str)
-        self.path_obj = Path(self.path_str)
-        assert self.path_obj.exists()
+    system: str = platform.system()
 
     def to_windows(self):
         return self.path_str
 
     @property
-    def path(self):
-        return self.path_obj
+    def path(self) -> Path:
+        if (self.system == "Linux") & (self.path_str.find("//") == 0):
+            # //npo needs to be changed to /npo
+            linux_str = self.path_str[1:]
+            path = Path(linux_str)
+        else:
+            path = Path(self.path_str)
+
+        assert path.exists()
+        return path
 
     def to_dict(self):
         return {self.path_name: self.to_windows()}
-
-
-
-
-
-
-
-

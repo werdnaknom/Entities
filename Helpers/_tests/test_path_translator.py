@@ -71,3 +71,4 @@ class PathTranslatorTestCase(BasicTestCase):
         pt = PathTranslator(path_name="capture_image", path_str=r"F:\ATS DATABASE\Island Rapids\K87758-002\00\894DA0\1014\Tests\Aux To Main\10\capture.png")
         self.assertDictEqual({"capture_image":r"F:\ATS DATABASE\Island Rapids\K87758-002\00\894DA0\1014\Tests\Aux To Main\10\capture.png" },
                              pt.to_dict())
+        self.assertDictEqual(asdict(pt), pt.to_dict())
