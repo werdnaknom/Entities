@@ -5,6 +5,7 @@ import os
 
 @dataclass
 class PathTranslator:
+    path_name: str
     path_str: str
     path_obj: Path = None
     system:str = platform.system()
@@ -23,6 +24,9 @@ class PathTranslator:
     @property
     def path(self):
         return self.path_obj
+
+    def to_dict(self):
+        return {self.path_name: self.to_windows()}
 
 
 

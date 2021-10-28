@@ -14,7 +14,10 @@ from .file_entities import CommentsFileEntity, \
     StatusFileEntity, SystemInfoFileEntity, TestRunFileEntity, \
     CaptureEnvironmentFileEntity, ProbesFileEntity, CaptureSettingsEntity, \
     LPTrafficFileEntity, DUTTrafficFileEntity, RunidPowerCSVFileEntity
-from Helpers.path_translator import PathTranslator
+try:
+    from Helpers.path_translator import PathTranslator
+except:
+    from Entities.Helpers.path_translator import PathTranslator
 
 IDTYPE = t.Optional[str]
 TriStateType = t.TypeVar('TriStateType', bool, type(None))
