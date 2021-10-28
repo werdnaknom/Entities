@@ -463,7 +463,7 @@ class WaveformCaptureEntity(_EntityBase, _WaveformCaptureBase, Entity):
             "capture_settings"))
         environment = CaptureEnvironmentFileEntity.from_dict(
             adict=adict.pop("environment"))
-        capture_pt = PathTranslator(path_str=adict["capture_path"])
+        capture_pt = PathTranslator(path_str=adict["capture_image"]["path_str"], path_name=adict["capture_image"]["path_name"])
         capture = WaveformCaptureEntity(capture=adict["capture"],
                                         runid=adict["runid"],
                                         test_category=adict["test_category"],
