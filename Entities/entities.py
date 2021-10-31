@@ -710,7 +710,7 @@ class _WaveformBase:
     max: float = None
     min: float = None
     #user_reviewed: bool = False
-    edge: bool = None
+    #edge: bool = None
     #associated_rail: str = None
     #associated_rail_ss_index: int = None
     downsample: list = field(default_factory=list, repr=False)
