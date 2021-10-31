@@ -1,4 +1,5 @@
 class EntityConfig():
+
     ''' ENTITY TYPE NAMES '''
     SILICON_TYPE = "SILICON"
     PROJECT_TYPE = "PROJECT"

@@ -705,14 +705,14 @@ class _WaveformBase:
     steady_state_max: float = None
     steady_state_pk2pk: float = None
     _steady_state_index: int = None
-    spec_max: float = None
-    spec_min: float = None
+    #spec_max: float = None
+    #spec_min: float = None
     max: float = None
     min: float = None
-    user_reviewed: bool = False
+    #user_reviewed: bool = False
     edge: bool = None
-    associated_rail: str = None
-    associated_rail_ss_index: int = None
+    #associated_rail: str = None
+    #associated_rail_ss_index: int = None
     downsample: list = field(default_factory=list, repr=False)
     _type: str = "WAVEFORM"
     ID_FMT = "{testpoint}_{test}_{runid}_{capture}_CH{scope_channel}"
