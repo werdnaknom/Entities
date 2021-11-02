@@ -51,6 +51,27 @@ class _FileEntityBase(Entity):
         return e
 
 
+''' Images '''
+
+
+@dataclass
+class _ImageBase():
+    name: str
+    image_base64: str
+    image_str: str
+
+
+@dataclass
+class ImageEntity(_FileEntityBase, _ImageBase):
+
+    @classmethod
+    def from_dataframe_row(cls, df_row) -> ImageEntity:
+        raise NotImplementedError
+
+    def to_result(self) -> OrderedDict:
+        raise NotImplementedError
+
+
 ''' COMMENTS '''
 
 
