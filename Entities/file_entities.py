@@ -16,7 +16,7 @@ from . import Entity
 
 @dataclass
 class _FileEntityBase(Entity):
-    _id: t.Optional[ObjectId] = None
+    #_id: t.Optional[ObjectId] = None
     modified_date: datetime.datetime = field(
         default=datetime.datetime.utcnow(), repr=False, compare=False)
     created_date: datetime.datetime = field(
