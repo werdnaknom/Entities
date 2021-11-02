@@ -767,6 +767,7 @@ class WaveformEntity(_EntityBase, _WaveformBase, Entity):
     def y_axis(self):
         return self.downsample[1]
 
+    @classmethod
     def from_dict(cls, adict: dict) -> WaveformEntity:
         downsample = adict["downsample"]
         wf_x = np.array(downsample[0])
