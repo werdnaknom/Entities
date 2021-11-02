@@ -14,6 +14,7 @@ from .file_entities import CommentsFileEntity, \
     StatusFileEntity, SystemInfoFileEntity, TestRunFileEntity, \
     CaptureEnvironmentFileEntity, ProbesFileEntity, CaptureSettingsEntity, \
     LPTrafficFileEntity, DUTTrafficFileEntity, RunidPowerCSVFileEntity
+
 try:
     from Helpers.path_translator import PathTranslator
 except:
@@ -463,7 +464,8 @@ class WaveformCaptureEntity(_EntityBase, _WaveformCaptureBase, Entity):
             "capture_settings"))
         environment = CaptureEnvironmentFileEntity.from_dict(
             adict=adict.pop("environment"))
-        capture_pt = PathTranslator(path_str=adict["capture_image"]["path_str"], path_name=adict["capture_image"]["path_name"])
+        capture_pt = PathTranslator(path_str=adict["capture_image"]["path_str"],
+                                    path_name=adict["capture_image"]["path_name"])
         capture = WaveformCaptureEntity(capture=adict["capture"],
                                         runid=adict["runid"],
                                         test_category=adict["test_category"],
@@ -601,7 +603,7 @@ class _ScriptCaptureBase:
     system: str
     test_category: str
     text_files: t.Dict[str, str]
-    #environment: CaptureEnvironmentFileEntity
+    # environment: CaptureEnvironmentFileEntity
     ID_FMT: str = "script_{runid}_{test}_{system}_{capture}"
     _type: str = "DATACAPTURE"
 
@@ -705,14 +707,13 @@ class _WaveformBase:
     steady_state_max: float = None
     steady_state_pk2pk: float = None
     _steady_state_index: int = None
-    #spec_max: float = None
-    #spec_min: float = None
+    # spec_max: float = None
+    # spec_min: float = None
     max: float = None
     min: float = None
-    #user_reviewed: bool = False
-    #edge: bool = None
-    #associated_rail: str = None
-    #associated_rail_ss_index: int = None
+    # user_reviewed: bool = False
+    # associated_rail: str = None
+    # associated_rail_ss_index: int = None
     downsample: list = field(default_factory=list, repr=False)
     _type: str = "WAVEFORM"
     ID_FMT = "{testpoint}_{test}_{runid}_{capture}_CH{scope_channel}"
@@ -765,6 +766,27 @@ class WaveformEntity(_EntityBase, _WaveformBase, Entity):
 
     def y_axis(self):
         return self.downsample[1]
+
+    def from_dict(cls, adict: dict) -> WaveformEntity:
+        downsample = adict["downsample"]
+        wf_x = np.array(downsample[0])
+        wf_y = np.array(downsample[1])
+        downsample = [wf_x, wf_y]
+
+        wfm = WaveformEntity(testpoint=adict["testpoint"],
+                             runid=adict["runid"],
+                             capture=adict["capture"],
+                             test_category=adict['test_category'],
+                             units=adict['units'], location=adict['location'],
+                             scope_channel=adict['scope_channel'],
+                             downsample=downsample,
+                             steady_state_min=adict.get("steady_state_min", 0),
+                             steady_state_max=adict.get("steady_state_max", 0),
+                             steady_state_pk2pk=adict.get("steady_state_pk2pk", 0),
+                             steady_state_mean=adict.get("steady_state_mean", 0),
+                             max=adict.get("max", 0),
+                             min=adict.get("min", 0))
+        return wfm
 
     def steady_state_index(self, expected_voltage: float = None) -> int:
         if self._steady_state_index is not None and expected_voltage is None:
