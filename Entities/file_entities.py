@@ -371,7 +371,7 @@ class PowerSupplyChannel(_FileEntityBase, _PowerSupplyBase):
 class _CaptureSettingsBase:
     chamber_setpoint: int
     dut_on: bool
-    power_supply_channels: t.Dict[int, PowerSupplyChannel] = field(
+    power_supply_channels: t.Dict[str, PowerSupplyChannel] = field(
         default_factory=dict)
 
 
@@ -397,7 +397,7 @@ class CaptureEnvironmentFileEntity(_FileEntityBase, _CaptureSettingsBase,
                                   f"'dut_on', but only contained {adict}"
         for power_ch in adict.get("power_supply_channels", power_supply_chs):
             ch_ent = PowerSupplyChannel.from_dict(power_ch)
-            power_supply_chs[ch_ent.channel] = ch_ent
+            power_supply_chs[str(ch_ent.channel)] = ch_ent
 
         adict['power_supply_channels'] = power_supply_chs
         return cls(**adict)
