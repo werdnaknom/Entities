@@ -16,7 +16,7 @@ from . import Entity
 
 @dataclass
 class _FileEntityBase(Entity):
-    #_id: t.Optional[ObjectId] = None
+    # _id: t.Optional[ObjectId] = None
     modified_date: datetime.datetime = field(
         default=datetime.datetime.utcnow(), repr=False, compare=False)
     created_date: datetime.datetime = field(
@@ -371,8 +371,8 @@ class PowerSupplyChannel(_FileEntityBase, _PowerSupplyBase):
 class _CaptureSettingsBase:
     chamber_setpoint: int
     dut_on: bool
-    power_supply_channels: t.List[PowerSupplyChannel] = field(
-        default_factory=list)
+    power_supply_channels: t.Dict[int, PowerSupplyChannel] = field(
+        default_factory=dict)
 
 
 @dataclass
@@ -388,16 +388,16 @@ class CaptureEnvironmentFileEntity(_FileEntityBase, _CaptureSettingsBase,
 
     @classmethod
     def from_dict(cls, adict: dict) -> CaptureEnvironmentFileEntity:
-        power_supply_chs = []
+        power_supply_chs = {}
         assert "chamber_setpoint" in adict, f"CaptureEnvironmentFileEntity " \
                                             f"did not have correct input dictionary.  Should have contained 'chamber_setpoint', but only contained {adict}"
         assert "dut_on" in adict, f"CaptureEnvironmentFileEntity " \
                                   f"did not have correct input " \
                                   f"dictionary.  Should have contained " \
                                   f"'dut_on', but only contained {adict}"
-        for power_ch in adict.get("power_supply_channels", []):
+        for power_ch in adict.get("power_supply_channels", power_supply_chs):
             ch_ent = PowerSupplyChannel.from_dict(power_ch)
-            power_supply_chs.append(ch_ent)
+            power_supply_chs[ch_ent.channel] = ch_ent
 
         adict['power_supply_channels'] = power_supply_chs
         return cls(**adict)
@@ -425,8 +425,8 @@ class CaptureEnvironmentFileEntity(_FileEntityBase, _CaptureSettingsBase,
 
     @classmethod
     def create_power_supply_channels(cls, keys: set, df_row: pd.Series) \
-            -> t.List[PowerSupplyChannel]:
-        result = []
+            -> t.Dict[int, PowerSupplyChannel]:
+        result = {}
         for x in range(1, 5):  # Loop over channels
             # print(x)
             channel_dict = {"channel": x,
@@ -449,7 +449,7 @@ class CaptureEnvironmentFileEntity(_FileEntityBase, _CaptureSettingsBase,
 
             # print(channel_dict)
             psc = PowerSupplyChannel(**channel_dict)
-            result.append(psc)
+            result[psc.channel] = psc
         return result
 
     def to_result(self) -> OrderedDict:
