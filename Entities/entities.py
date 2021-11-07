@@ -364,6 +364,9 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
 
         return result_dict
 
+    def get_runtime(self) -> str:
+        return self.status.get_runtime()
+
 
 @dataclass
 class _TestBase:

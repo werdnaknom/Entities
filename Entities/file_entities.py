@@ -135,6 +135,10 @@ class StatusFileEntity(_FileEntityBase, _StatusBase):
             ("Automation Status", self.status)
         ])
 
+    def get_runtime(self) -> str:
+        time_fmt = "{hr}:{min}:{sec}".format(hr=self.runtime_hours, min=self.runtime_minutes, sec=self.runtime_seconds)
+        return time_fmt
+
 
 ''' END STATUS'''
 ''' SYSTEMINFO PROBES'''
