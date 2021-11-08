@@ -136,7 +136,7 @@ class StatusFileEntity(_FileEntityBase, _StatusBase):
         ])
 
     def get_runtime(self) -> str:
-        time_fmt = "{hr}:{min}:{sec}".format(hr=self.runtime_hours, min=self.runtime_minutes, sec=self.runtime_seconds)
+        time_fmt = "{hr}hr:{min}m".format(hr=self.runtime_hours, min=self.runtime_minutes, sec=self.runtime_seconds)
         return time_fmt
 
 
