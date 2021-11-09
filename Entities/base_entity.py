@@ -52,8 +52,15 @@ class Entity:
     def from_dict(cls, adict: dict) -> Entity:
         return cls(**adict)
 
+    @classmethod
+    def from_mongo(cls, adict: dict) -> Entity:
+        return cls.from_dict(adict)
+
     def to_dict(self) -> dict:
         return asdict(self)
+
+    def to_mongo(self) -> dict:
+        return self.to_dict()
 
     def get_filter(self) -> dict:
         raise NotImplementedError

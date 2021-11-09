@@ -770,8 +770,13 @@ class WaveformEntity(_EntityBase, _WaveformBase, Entity):
     def y_axis(self):
         return self.downsample[1]
 
+    def to_mongo(self) -> dict:
+        mongo_dict = self.to_dict()
+        mongo_dict['downsample'] = [self.x_axis().tolist(), self.y_axis().tolist()]
+        return mongo_dict
+
     @classmethod
-    def from_dict(cls, adict: dict) -> WaveformEntity:
+    def from_mongo(cls, adict: dict) -> WaveformEntity:
         downsample = adict["downsample"]
         wf_x = np.array(downsample[0])
         wf_y = np.array(downsample[1])
