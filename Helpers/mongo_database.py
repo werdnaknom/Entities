@@ -1,4 +1,4 @@
-from app.shared.Entities.entities import *
+from Entities.Entities import *
 
 from app import mongo
 
@@ -39,8 +39,7 @@ class MongoEntity():
     @classmethod
     def insert_or_update_one(cls, entity: Entity, upsert: bool = True):
         cls._verify_entity(entity=entity)
-        update_dict= {"$set": {"modified_date": datetime.datetime.utcnow()}}
-        
+        update_dict = {"$set": {"modified_date": datetime.datetime.utcnow()}}
 
         update = cls.get_collection().update_one(filter=entity.get_filter(),
                                                  update=update_dict,
