@@ -77,7 +77,7 @@ class ImageEntity(_FileEntityBase, _ImageBase):
 
 @dataclass
 class _CommentsBase():
-    comments: dict
+    comments: str
 
 
 @dataclass
@@ -87,18 +87,15 @@ class CommentsFileEntity(_FileEntityBase, _CommentsBase):
     def from_dataframe_row(cls, df_row) -> CommentsFileEntity:
         comment = str(df_row.comments)
         if comment:
-            comments = {f"Line{i}": value for i, value in enumerate(
-                comment.split(
-                    "\n"))}
+            comments = ", ".join(comment.split("\n"))
         else:
-            comments = {}
+            comments = ""
         fe = CommentsFileEntity(comments=comments)
         return fe
 
     def to_result(self) -> OrderedDict:
         return OrderedDict([('Test Setup Comment',
-                             "".join([value for value in
-                                      self.comments.values()]))])
+                             self.comments)])
 
 
 ''' END COMMENTS '''
