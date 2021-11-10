@@ -343,6 +343,10 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
                             power=power)
         return runid
 
+    def get_probe(self, probe_channel: int) -> ProbesFileEntity:
+        assert probe_channel != 0
+        return self.system_info.get_probe(probe_channel=probe_channel)
+
     def get_filter(self) -> dict:
         return {"runid": self.runid}
 
