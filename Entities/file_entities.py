@@ -201,6 +201,9 @@ class SystemInfoFileEntity(_FileEntityBase, _SystemInfoBase, Entity):
             ("ATS Version", self.ats_version)
         ])
 
+    def get_probe(self, probe_channel: int) -> ProbesFileEntity:
+        return self.probes[probe_channel - 1]
+
 
 ''' END SYSTEMINFO'''
 
