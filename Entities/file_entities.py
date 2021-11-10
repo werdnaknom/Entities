@@ -254,6 +254,12 @@ class TestRunFileEntity(_FileEntityBase, _TestRunBase, Entity):
             ("Test Station", self.test_station),
         ])
 
+    def get_testpoint_dict(self) -> t.Dict[int, str]:
+        return self.test_points
+
+    def get_testpoint_list(self) -> t.List[str]:
+        return self.test_points.values()
+
 
 ''' END TESTRUN'''
 

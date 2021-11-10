@@ -367,6 +367,12 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
     def get_runtime(self) -> str:
         return self.status.get_runtime()
 
+    def get_testpoint_dict(self) -> t.Dict[int, str]:
+        return self.testrun.get_testpoint_dict()
+
+    def get_testpoint_list(self) -> t.List[str]:
+        return self.testrun.get_testpoint_list()
+
 
 @dataclass
 class _TestBase:
