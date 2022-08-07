@@ -1,5 +1,5 @@
 import typing as t
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 import datetime
 
 
@@ -15,5 +15,8 @@ class ErrorEntity:
     _type: str = "ERROR"
 
     @classmethod
-    def get_type(cls):
+    def get_type(cls) -> str:
         return cls._type
+
+    def to_mongo(self) -> dict:
+        return asdict(self)
