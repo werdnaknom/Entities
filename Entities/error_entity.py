@@ -12,3 +12,8 @@ class ErrorEntity:
         default=datetime.datetime.utcnow(), repr=False, compare=False)
     created_date: datetime.datetime = field(
         default=datetime.datetime.utcnow(), repr=False, compare=False)
+    _type: str = "ERROR"
+
+    @classmethod
+    def get_type(cls):
+        return cls._type
