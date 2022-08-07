@@ -6,7 +6,7 @@ import datetime
 @dataclass
 class ErrorEntity:
     _id = None
-    error_traceback: str
+    error_traceback: Exception
     error_msg: str
     modified_date: datetime.datetime = field(
         default=datetime.datetime.utcnow(), repr=False, compare=False)
