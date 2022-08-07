@@ -392,12 +392,14 @@ class AutomationTestEntity(_EntityBase, _TestBase, Entity):
     '''
 
     def __post_init__(self):
+        '''
         name_list = ["Aux To Main", "EthAgent", "Load Profile", "Scripts",
                      "Ripple"]
         if self.name not in name_list:
             raise AttributeError(f"Automation Test is {self.name}, which is "
                                  f"not in the standard list. Is this correct?"
                                  f" Expected name list:{name_list}")
+        '''
         if self._id is None:
             self._id = self.format_id(test_name=self.name)
 
