@@ -858,7 +858,7 @@ class _TestpointBase:
     bandwidth_mhz: float
     valid_value: float
     poweron_time_ms: float
-    ID_FMT = "{product}_{testpoint}_{bandwidth}"
+    ID_FMT = "{product}_{testpoint}_{bandwidth}MHZ"
 
 
 @dataclass()
