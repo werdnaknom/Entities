@@ -843,3 +843,38 @@ class WaveformEntity(_EntityBase, _WaveformBase, Entity):
 
     def is_current_rail(self) -> bool:
         pass
+
+
+@dataclass
+class _TestpointBase:
+    testpoint: str
+    edge_rail: bool
+    current_rail: bool
+    associated_rail: str
+    product: str
+    nominal_value: float
+    min_value: float
+    max_value: float
+    bandwidth_mhz: float
+    valid_value: float
+    poweron_time_ms: float
+    ID_FMT = "{product}_{testpoint}_{bandwidth}"
+
+
+@dataclass()
+class TestpointEntity(_EntityBase, _TestpointBase, Entity):
+    def __post_init__(self):
+        if self._id is None:
+            self._id = self.format_id(testpoint=self.testpoint,
+                                      product=self.product,
+                                      bandwidth=self.bandwidth_mhz)
+
+    @property
+    def descriptor(self) -> str:
+        return "{product} {testpoint}".format(product=self.product,
+                                              testpoint=self.testpoint)
+
+    @classmethod
+    def format_id(cls, testpoint: str, product: str, bandwidth: float) -> str:
+        return cls.ID_FMT.format(product=product, testpoint=testpoint,
+                                 bandwidth=bandwidth)
