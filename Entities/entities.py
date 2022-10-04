@@ -279,7 +279,7 @@ class _RunidBase:
     testrun: TestRunFileEntity
     comments: CommentsFileEntity
     power: RunidPowerCSVFileEntity
-    valid: str = "Invalid"
+    valid: str = "Unknown"
     _type: str = "RUNID"
 
 
@@ -307,6 +307,10 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
             return True
         else:
             return False
+
+    @classmethod
+    def valid_options(cls) -> t.List[str]:
+        return ["Valid", "Invalid", "Unknown"]
 
     @classmethod
     def format_id(cls, runid: int, location: str) -> str:
