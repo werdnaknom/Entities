@@ -298,10 +298,6 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
     def descriptor(self) -> str:
         return str(self.runid)
 
-    @property
-    def valid(self) -> str:
-        return self.valid
-
     def check_validity(self) -> bool:
         if self.valid == "Valid":
             return True
