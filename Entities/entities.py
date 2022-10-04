@@ -279,6 +279,7 @@ class _RunidBase:
     testrun: TestRunFileEntity
     comments: CommentsFileEntity
     power: RunidPowerCSVFileEntity
+    valid: str = "Invalid"
     _type: str = "RUNID"
 
 
@@ -296,6 +297,16 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
     @property
     def descriptor(self) -> str:
         return str(self.runid)
+
+    @property
+    def valid(self) -> str:
+        return self.valid
+
+    def check_validity(self) -> bool:
+        if self.valid == "Valid":
+            return True
+        else:
+            return False
 
     @classmethod
     def format_id(cls, runid: int, location: str) -> str:
@@ -329,6 +340,7 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
         status = StatusFileEntity.from_dict(adict=adict.pop("status"))
         system = SystemInfoFileEntity.from_dict(adict=adict.pop("system_info"))
         power = RunidPowerCSVFileEntity.from_dict(adict.pop("power"))
+        valid = adict.get("valid", "Invalid")
 
         runid = RunidEntity(runid=adict['runid'],
                             project=adict['project'],
@@ -340,7 +352,8 @@ class RunidEntity(_EntityBase, _RunidBase, Entity):
                             testrun=testrun,
                             status=status,
                             system_info=system,
-                            power=power)
+                            power=power,
+                            valid=valid)
         return runid
 
     def get_probe(self, probe_channel: int) -> ProbesFileEntity:
@@ -843,6 +856,7 @@ class WaveformEntity(_EntityBase, _WaveformBase, Entity):
 
     def is_current_rail(self) -> bool:
         pass
+
 
 @dataclass
 class _TestpointBase:
