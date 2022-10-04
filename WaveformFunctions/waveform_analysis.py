@@ -60,7 +60,7 @@ class WaveformAnalysis(object):
 
     @classmethod
     def find_cutoff_target_by_percentile(cls, wf: np.ndarray, percentile: int = 92) -> float:
-        target = np.percentile(cls, wf, percentile)
+        target = np.percentile(wf, percentile)
         return target
 
     @classmethod

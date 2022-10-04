@@ -844,7 +844,6 @@ class WaveformEntity(_EntityBase, _WaveformBase, Entity):
     def is_current_rail(self) -> bool:
         pass
 
-
 @dataclass
 class _TestpointBase:
     testpoint: str
