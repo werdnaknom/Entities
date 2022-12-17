@@ -469,7 +469,7 @@ class CaptureEnvironmentFileEntity(_FileEntityBase, _CaptureSettingsBase,
         for ch in self.power_supply_channels:
             # if ch.channel_on:
             #    result_dict.update(ch.to_result())
-            result_dict.update(ch.to_result())
+            result_dict.update(self.power_supply_channels[ch].to_result())
 
         return result_dict
 
