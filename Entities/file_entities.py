@@ -406,8 +406,8 @@ class CaptureEnvironmentFileEntity(_FileEntityBase, _CaptureSettingsBase,
                                   f"dictionary.  Should have contained " \
                                   f"'dut_on', but only contained {adict}"
         for power_ch in adict.get("power_supply_channels", power_supply_chs):
-            ch_ent = PowerSupplyChannel.from_dict(power_ch)
-            power_supply_chs[str(ch_ent.channel)] = ch_ent
+            ch_ent = PowerSupplyChannel.from_dict(adict['power_supply_channels'][power_ch])
+            power_supply_chs[power_ch] = ch_ent
 
         adict['power_supply_channels'] = power_supply_chs
         return cls(**adict)
