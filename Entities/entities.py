@@ -739,7 +739,7 @@ class _WaveformBase:
     # spec_min: float = None
     max: float = None
     min: float = None
-    # user_reviewed: bool = False
+    user_reviewed: bool = False
     # associated_rail: str = None
     # associated_rail_ss_index: int = None
     downsample: list = field(default_factory=list, repr=False)
@@ -819,7 +819,8 @@ class WaveformEntity(_EntityBase, _WaveformBase, Entity):
                              steady_state_pk2pk=adict.get("steady_state_pk2pk", 0),
                              steady_state_mean=adict.get("steady_state_mean", 0),
                              max=adict.get("max", 0),
-                             min=adict.get("min", 0))
+                             min=adict.get("min", 0),
+                             user_reviewed=adict.get("user_reviewed", False))
         return wfm
 
     def steady_state_index(self, expected_voltage: float = None) -> int:
