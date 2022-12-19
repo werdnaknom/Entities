@@ -4,7 +4,7 @@ from zipfile import ZipFile
 
 import numpy as np
 
-XY_WAVEFORM = t.List[np.ndarray] #X, Y waveform
+XY_WAVEFORM = t.List[np.ndarray]  # X, Y waveform
 
 
 def read_waveform_binary(location: Path, compressed: bool) -> np.ndarray:
@@ -85,3 +85,11 @@ def find_steady_state_waveform_by_percentile(wf: np.ndarray,
     ss_wf = find_steady_state_wf(wf=wf, value=accuracy_value)
 
     return ss_wf
+
+
+def find_t0(wf: np.ndarray, trigger_voltage: float, trigger: str = "rising") -> int:
+    if trigger == "rising":
+        t0 = np.argmax(wf >= trigger_voltage)
+    else:
+        t0 = np.argmax(wf <= trigger_voltage)
+    return t0
