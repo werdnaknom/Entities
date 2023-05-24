@@ -1,7 +1,11 @@
 import logging
 
-from RequestResponse.responses import ResponseFailure, ResponseSuccess, Responses
-from RequestResponse.requests import RequestObject
+try:
+    from RequestResponse.responses import ResponseFailure, ResponseSuccess, Responses
+    from RequestResponse.requests import RequestObject
+except ModuleNotFoundError:
+    from Entities.RequestResponse.responses import ResponseFailure, ResponseSuccess, Responses
+    from Entities.RequestResponse.requests import RequestObject
 
 logging.basicConfig(format='[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)s] : %(message)s',
                     level=logging.DEBUG)
