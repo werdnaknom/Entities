@@ -872,6 +872,7 @@ class _TestpointBase:
     bandwidth_mhz: float
     valid_value: float
     poweron_time_ms: float
+    _type: str = "TESTPOINT"
     ID_FMT = "{product}_{testpoint}_{bandwidth}MHZ"
 
 
