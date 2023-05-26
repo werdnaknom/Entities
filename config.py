@@ -1,5 +1,4 @@
 class EntityConfig():
-
     ''' ENTITY TYPE NAMES '''
     SILICON_TYPE = "SILICON"
     PROJECT_TYPE = "PROJECT"
@@ -44,3 +43,8 @@ class EntityConfig():
         "steps.xml",  #
         "System Info.json",  # SystemInfoFileEntity
         "testrun.json"]  # TestRunFileEntity
+
+
+class PostProcessingConfig():
+    post_processors = ["Load Profile", "Inrush", "Voltage System Dynamics", "Bit Error Ratio", "Power-on Sequencing",
+                       "Power-off Sequencing", "Power-on Time", "Edge Power"]
