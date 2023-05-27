@@ -48,3 +48,4 @@ class EntityConfig():
 class PostProcessingConfig():
     post_processors = ["Load Profile", "Inrush", "Voltage System Dynamics", "Bit Error Ratio", "Power-on Sequencing",
                        "Power-off Sequencing", "Power-on Time", "Edge Power"]
+    repository_dataprocessing_route = "/dataprocessor"
