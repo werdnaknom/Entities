@@ -861,17 +861,18 @@ class WaveformEntity(_EntityBase, _WaveformBase, Entity):
 
 @dataclass
 class _TestpointBase:
+    product: str
     testpoint: str
     edge_rail: bool
     current_rail: bool
     associated_rail: str
-    product: str
     nominal_value: float
     min_value: float
     max_value: float
     bandwidth_mhz: float
     valid_value: float
     poweron_time_ms: float
+    poweron_order: int
     _type: str = "TESTPOINT"
     ID_FMT = "{product}_{testpoint}_{bandwidth}MHZ"
 
