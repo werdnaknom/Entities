@@ -5,12 +5,15 @@ import datetime
 import numpy as np
 from pathlib import Path
 
-from app.shared.Entities.entities import Entity, ProjectEntity, PBAEntity, \
-    ReworkEntity, RunidEntity, SiliconEntity, \
-    WaveformCaptureEntity, SubmissionEntity, AutomationTestEntity, WaveformEntity
-from app.shared.Entities.entities import PROJECT_DESCRIPTOR, LIST_OF_SILICON
+try:
+    from app.shared.Entities.entities import Entity, ProjectEntity, PBAEntity, \
+        ReworkEntity, RunidEntity, SiliconEntity, \
+        WaveformCaptureEntity, SubmissionEntity, AutomationTestEntity, WaveformEntity
+    from app.shared.Entities.entities import PROJECT_DESCRIPTOR, LIST_OF_SILICON
 
-from app import mongo
+    from app import mongo
+except FileNotFoundError:
+    from Entities.entities import *
 
 ENTITY_TYPE = t.TypeVar("ENTITY_TYPE", Entity, ProjectEntity, PBAEntity,
                         ReworkEntity, RunidEntity,
@@ -147,9 +150,7 @@ def create_datacapture(number: int, runid: int,
     return capture
 
 
-def create_waveform(testpoint: str, location: str, scope_channel: str, runid:
-int,
-                    capture: int, units: str = "V",
+def create_waveform(testpoint: str, location: str, scope_channel: str, runid: int, capture: int, units: str = "V",
                     user_reviewed: bool = False) -> WaveformEntity:
     wf_path = Path(location)
     if not wf_path.exists():
@@ -181,3 +182,4 @@ int,
                }
 
     waveform = create_entity(WaveformEntity, adict=wf_dict)
+    return waveform
